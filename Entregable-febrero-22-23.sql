@@ -57,6 +57,16 @@ ALTER TABLE "courses" ADD FOREIGN KEY ("id_course_video") REFERENCES "course_vid
 ALTER TABLE "courses" ADD FOREIGN KEY ("id_categories") REFERENCES "categories" ("id");
 
 
+CREATE DATABASE courses:
+
+INSERT INTO level (name) VALUES ('Principiante'), ('Medio'),('Avanzado');
+INSERT INTO course_videos (title,url) VALUES ('Matematica','www.matematica.com.pe'),('Programacion I','www.programacion.com.pe'),('Literartura','www.literatura.com.pe');
+INSERT INTO categories (name) VALUES ('Presencial'),('Semi presencial'),('Onlinea');
+INSERT INTO roles (name) VALUES ('Admin'),('Teacher'),('Studen'); 
+INSERT INTO teacher (name) VALUES ('Juan Ramon'),('Raul Gomez'),('Luis Marcelo');
+INSERT INTO users (name,email,password,age,id_roles) VALUES ('Harvey Lopez','harvey@hotmail.com','123456789',35,3), ('Luis Felipe','felip@hotmail.com','123456789',45,3), ('Juan Ramon','harvey@hotmail.com','123456789',45,2);
+INSERT INTO courses (title,description,id_level,id_teacher,id_users,id_course_videos,id_categories) VALUES ('Matematica','Curso basico etc...',1,1,1,1,1),('MaProgramacion I','Curso intermedio etc...',2,2,1,2,2),('Literatura','Curso avanzado etc...',3,3,2,3,3);
+
 
 
 COMANDO DE CONSULTAS
@@ -84,6 +94,10 @@ courses=# SELECT * FROM courses WHERE title='Matematica';
 
 
 
+
+
+
+USO DE JOIN
 
 courses=# SELECT * FROM users JOIN roles ON roles.id = users.id_roles;
  id |      name      |        email         | password  | age | id_roles | id |  name
@@ -118,3 +132,20 @@ courses=# SELECT courses.id, courses.title, users.name FROM courses JOIN users O
   1 | Matematica | Harvey Lopez
   3 | Literatura | Harvey Lopez
 (2 filas)
+
+
+courses=# SELECT courses.id, courses.title, users.name, teacher.name,level.name FROM courses JOIN users ON users.id = courses.id_user JOIN teacher ON courses.id=teacher.id JOIN level ON courses.id=level.id;
+ id |     title      |      name      |      name       |     name
+----+----------------+----------------+-----------------+--------------
+  1 | Matematica     | Harvey Lopez   | Juan Ramon      | Principiante
+  2 | Programacion I | Nilton Baldeon | Ricardo Mallqui | Medio
+  3 | Literatura     | Harvey Lopez   | Jose Carranza   | Avanzado
+(3 filas)
+         
+courses=# SELECT courses.id, courses.title, users.name, teacher.name,level.name,course_videos.title FROM courses JOIN users ON users.id = courses.id_user JOIN teacher ON courses.id=teacher.id JOIN level ON courses.id=level.id JOIN course_videos ON courses.id=course_videos.id;
+ id |     title      |      name      |      name       |     name     |     title
+----+----------------+----------------+-----------------+--------------+----------------
+  1 | Matematica     | Harvey Lopez   | Juan Ramon      | Principiante | Matematica
+  2 | Programacion I | Nilton Baldeon | Ricardo Mallqui | Medio        | Programacion I
+  3 | Literatura     | Harvey Lopez   | Jose Carranza   | Avanzado     | Literatura
+(3 filas)
