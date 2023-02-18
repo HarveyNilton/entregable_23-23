@@ -101,3 +101,20 @@ courses=# SELECT * FROM courses JOIN users ON users.id = courses.id_user;
   2 | Programacion I | Introducion a la programacion                      |        1 |          2 |       2 |               2 |             3 |  2 | Nilton Baldeon | badeon@gmail.com     | 987654321 |  30 |        3
   3 | Literatura     | Aspectos en la vida cotidiana                      |        2 |          3 |       1 |               3 |             2 |  1 | Harvey Lopez   | lopezharve@gmail.com | 123456789 |  40 |        3
 (3 filas)
+
+
+courses=# SELECT courses.id, courses.title, users.name FROM courses JOIN users ON users.id = courses.id_user;
+ id |     title      |      name
+----+----------------+----------------
+  1 | Matematica     | Harvey Lopez
+  2 | Programacion I | Nilton Baldeon
+  3 | Literatura     | Harvey Lopez
+(3 filas)
+
+
+courses=# SELECT courses.id, courses.title, users.name FROM courses JOIN users ON users.id = courses.id_user WHERE users.name='Harvey Lopez';
+ id |   title    |     name
+----+------------+--------------
+  1 | Matematica | Harvey Lopez
+  3 | Literatura | Harvey Lopez
+(2 filas)
