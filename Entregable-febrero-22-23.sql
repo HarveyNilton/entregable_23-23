@@ -81,3 +81,23 @@ courses=# SELECT * FROM courses WHERE title='Matematica';
 ----+------------+----------------------------------------------------+----------+------------+---------+-----------------+---------------
   1 | Matematica | Es un curso basico de la curricula de programacion |        1 |          1 |       1 |               1 |             1
 (1 fila)
+
+
+
+
+courses=# SELECT * FROM users JOIN roles ON roles.id = users.id_roles;
+ id |      name      |        email         | password  | age | id_roles | id |  name
+----+----------------+----------------------+-----------+-----+----------+----+---------
+  1 | Harvey Lopez   | lopezharve@gmail.com | 123456789 |  40 |        3 |  3 | Studen
+  2 | Nilton Baldeon | badeon@gmail.com     | 987654321 |  30 |        3 |  3 | Studen
+  3 | Juan Ramon     | juanramon@gmail.com  | 22222221  |  38 |        2 |  2 | Teacher
+(3 filas)
+
+
+courses=# SELECT * FROM courses JOIN users ON users.id = courses.id_user;
+ id |     title      |                    description                     | id_level | id_teacher | id_user | id_course_video | id_categories | id |      name      |        email         | password  | age | id_roles
+----+----------------+----------------------------------------------------+----------+------------+---------+-----------------+---------------+----+----------------+----------------------+-----------+-----+----------
+  1 | Matematica     | Es un curso basico de la curricula de programacion |        1 |          1 |       1 |               1 |             1 |  1 | Harvey Lopez   | lopezharve@gmail.com | 123456789 |  40 |        3
+  2 | Programacion I | Introducion a la programacion                      |        1 |          2 |       2 |               2 |             3 |  2 | Nilton Baldeon | badeon@gmail.com     | 987654321 |  30 |        3
+  3 | Literatura     | Aspectos en la vida cotidiana                      |        2 |          3 |       1 |               3 |             2 |  1 | Harvey Lopez   | lopezharve@gmail.com | 123456789 |  40 |        3
+(3 filas)
